@@ -45,10 +45,10 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
         time.sleep(.1)
 
         try:
-            print("Hi")
-            driver.find_element(By.CSS_SELECTOR, ".gsfi").click()
+            # print("Hi")
+            # driver.find_element(By.CSS_SELECTOR, ".gsfi").click()
             #driver.find_element(By.CSS_SELECTOR,'[alt="Close"]').click()
-            #driver.find_element(By.CSS_SELECTOR,'[alt="Close"]').click() #clicking to the X.
+            driver.find_element(By.CSS_SELECTOR,'[alt="Close"]').click() #clicking to the X.
             #driver.find_element(By.CSS_SELECTOR,"ModalStyle__xBtn___29PT9").click() #clicking to the X.
             #driver.find_element(By.CSS_SELECTOR,'[alt="Close"]').click() #clicking to the X.
             #driver.find_element_by_css_selector('[alt="close"]').click() #clicking to the X.
