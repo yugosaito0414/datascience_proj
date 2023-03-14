@@ -61,7 +61,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
         
         #this is the issue we have!
         #Going through each job in this page
-        job_buttons = driver.find_elements(By.CLASS_NAME, "jl") #it might be content instead of jl.
+        job_buttons = driver.find_elements(By.CLASS_NAME, "react-job-listing") #it might be content instead of jl.
         #job_button = driver.find_element(By.CSS_SELECTOR, "#sbtc > div > div.a4bIc > input")
         #job_buttons = driver.find_elements_by_class_name("jl")  #jl for Job Listing. These are the buttons we're going to click.
         print (len(job_buttons))
@@ -73,14 +73,30 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
 
             job_button.click()  #You might 
             time.sleep(1)
+            
+            try:
+                # print("Hi")
+                # driver.find_element(By.CSS_SELECTOR, ".gsfi").click()
+                #driver.find_element(By.CSS_SELECTOR,'[alt="Close"]').click()
+                driver.find_element(By.CSS_SELECTOR,'[alt="Close"]').click() #clicking to the X.
+                #driver.find_element(By.CSS_SELECTOR,"ModalStyle__xBtn___29PT9").click() #clicking to the X.
+                #driver.find_element(By.CSS_SELECTOR,'[alt="Close"]').click() #clicking to the X.
+                #driver.find_element_by_css_selector('[alt="close"]').click() #clicking to the X.
+                print ("x out worked ")
+            except NoSuchElementException as e:
+                print ("x out failed")
+                print (e)
+                pass
+            
+            
             collected_successfully = False
             
             while not collected_successfully:
                 try:
-                    company_name = driver.find_element(By.XPATH,'.//div[@class="employerName"]').text
-                    location = driver.find_element(By.XPATH,'.//div[@class="location"]').text
-                    job_title = driver.find_element(By.XPATH,'.//div[contains(@class, "title")]').text
-                    job_description = driver.find_element(By.XPATH,'.//div[@class="jobDescriptionContent desc"]').text
+                    company_name = driver.find_element(By.XPATH,'//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[1]/div').text
+                    location = driver.find_element(By.XPATH,'//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[3]').text
+                    job_title = driver.find_element(By.XPATH,'//*[@id="JDCol"]/div/article/div/div[1]/div/div/div[1]/div[3]/div[1]/div[2]').text
+                    #job_description = driver.find_element(By.XPATH,'.//div[@class="jobDescriptionContent desc"]').text
                     collected_successfully = True
                 except:
                     time.sleep(5)
@@ -99,7 +115,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
             if verbose:
                 print("Job Title: {}".format(job_title))
                 print("Salary Estimate: {}".format(salary_estimate))
-                print("Job Description: {}".format(job_description[:500]))
+                #print("Job Description: {}".format(job_description[:500]))
                 print("Rating: {}".format(rating))
                 print("Company Name: {}".format(company_name))
                 print("Location: {}".format(location))
@@ -180,7 +196,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
 
             jobs.append({"Job Title" : job_title,
             "Salary Estimate" : salary_estimate,
-            "Job Description" : job_description,
+            #"Job Description" : job_description,
             "Rating" : rating,
             "Company Name" : company_name,
             "Location" : location,
